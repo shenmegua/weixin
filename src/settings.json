@@ -1,0 +1,17 @@
+{
+  "db": {
+    "model": {
+      "host": "127.0.0.1",
+      "port": "27107",
+      "name": "weixin",
+      "pool_size": 6
+    },
+    "session": {
+      "cookieSecret": "weixin_sess",
+      "host": "127.0.0.1",
+      "port": "27107",
+      "name": "sessioncache",
+      "pool_size": 6      
+    }
+  }
+}
