@@ -4,6 +4,9 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var settings = require('./src/settings');
+var session = require('express-session');
+var MongoStore = require('connect-mongo/es5')(session);
 
 var routes = require('./src/routes/index');
 
@@ -20,6 +23,17 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(session({
+  secret: settings.db.session.cookieSecret,
+  key: settings.db.session.sessioncache,
+  cookie: {maxAge: 60 * 1000 * 30}, // 设置过期时间：30分钟
+  resave: false,
+  saveUninitialized: true,
+  store: new MongoStore({
+    url: 'mongodb://localhost:27017/weixin'
+  })
+}));
 
 // 路由
 routes(app);
