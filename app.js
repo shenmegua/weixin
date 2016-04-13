@@ -31,7 +31,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   store: new MongoStore({
-    url: 'mongodb://localhost:27017/weixin'
+    url: 'mongodb://localhost:27017/sessioncache'
   })
 }));
 
