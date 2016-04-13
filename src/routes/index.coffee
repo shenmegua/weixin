@@ -8,6 +8,9 @@ router.get "/test", (req, res, next) ->
   res.render "index", {"title": "node-dev add succ!"}
 
 router.get "/new", (req, res, next) ->
-  res.render "index", {"title": "new"}
+  res.render "index", {"title": "new" }
+
+router.get "/ssh", (req, res, next) ->
+  res.render "index", {"title": "ssh" }
 
 module.exports = router

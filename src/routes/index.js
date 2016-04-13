@@ -24,6 +24,12 @@
     });
   });
 
+  router.get("/ssh", function(req, res, next) {
+    return res.render("index", {
+      "title": "ssh"
+    });
+  });
+
   module.exports = router;
 
 }).call(this);
