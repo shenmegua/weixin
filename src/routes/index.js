@@ -37,23 +37,28 @@
         "title": "Login"
       });
     });
-    return app.post("/login", function(req, res) {
+    app.post("/login", function(req, res) {
       return UserCtrls.find_user(req, res, function(err, user) {
         if (err) {
           return res.redirect(404);
         } else {
           if (!user) {
             console.log('用户不存在');
-            res.render('/login');
+            return res.render('login/login');
+          } else {
+            req.session.sign = true;
+            req.session.user = user;
+            console.log('name', req.session);
+            return res.render("home", {
+              session: req.session
+            });
           }
-          console.log('user:', user);
-          req.session.sign = true;
-          req.session.user = user;
-          return res.render("home", {
-            session: req.session
-          });
         }
       });
+    });
+    return app.get("/logout", function(req, res) {
+      req.session.destroy();
+      return res.redirect("/");
     });
   };
 

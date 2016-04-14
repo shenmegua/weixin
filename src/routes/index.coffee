@@ -27,7 +27,7 @@ router = (app) ->
   app.get "/login", (req, res) ->
     res.render "login/login", {"title": "Login"}
 
-  #用户注册
+  #用户登录
   app.post "/login", (req, res) ->
     UserCtrls.find_user req, res, (err, user) ->
       if err
@@ -35,10 +35,15 @@ router = (app) ->
       else
         if !user
           console.log '用户不存在'
-          res.render '/login'
-        console.log 'user:', user
-        req.session.sign = true
-        req.session.user = user
-        res.render "home", {session: req.session}
+          res.render 'login/login'
+        else
+          req.session.sign = true
+          req.session.user = user
+          console.log 'name', req.session
+          res.render "home", {session: req.session}
+
+  app.get "/logout", (req, res) ->
+    req.session.destroy()
+    res.redirect "/"
 
 module.exports = router

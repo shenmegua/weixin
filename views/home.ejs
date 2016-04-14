@@ -1,7 +1,6 @@
 <div>
   <ul>
-    <%= session.user %>
-    <li>Welcome <strong><%= session.user %></strong>再次登录！</li>
-    <li href="/logout">Login Out</li>
+    <li>Welcome <strong><%= session.user.name %></strong> 再次登录！</li>
+    <li><a  href="/logout">Login Out</a></li>
   </ul>
 </div>

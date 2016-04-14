@@ -10,7 +10,7 @@ UserService =
         return cbf null, doc
 
   findUser : (params, cbf) ->
-    UserModel.find params, (err, doc) ->
+    UserModel.findOne params, (err, doc) ->
       if err
         return cbf err, null
       else

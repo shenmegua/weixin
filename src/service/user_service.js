@@ -16,7 +16,7 @@
       });
     },
     findUser: function(params, cbf) {
-      return UserModel.find(params, function(err, doc) {
+      return UserModel.findOne(params, function(err, doc) {
         if (err) {
           return cbf(err, null);
         } else {
