@@ -5,11 +5,25 @@
   UserService = require('../service/user_service');
 
   module.exports.find_user = function(req, res, cbf) {
-    var params;
+    var name, params, passwd, ref, ref1;
+    console.log("req.body:", req.body);
+    name = (ref = req.body) != null ? ref.name : void 0;
+    passwd = (ref1 = req.body) != null ? ref1.passwd : void 0;
     params = {
-      userid: '1'
+      name: name,
+      passwd: passwd
     };
     return UserService.findUser(params, cbf);
+  };
+
+  module.exports.save = function(req, res, cbf) {
+    var params, ref, ref1, ref2, ref3;
+    params = {};
+    params.userid = ((ref = req.body) != null ? ref.userid : void 0) || '';
+    params.name = ((ref1 = req.body) != null ? ref1.name : void 0) || '';
+    params.passwd = ((ref2 = req.body) != null ? ref2.passwd : void 0) || '';
+    params.email = ((ref3 = req.body) != null ? ref3.email : void 0) || '';
+    return UserService.addUser(params, cbf);
   };
 
 }).call(this);

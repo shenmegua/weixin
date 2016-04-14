@@ -5,16 +5,54 @@
   UserCtrls = require('../ctrls/user_ctrl');
 
   router = function(app) {
-    return app.get("/", function(req, res, next) {
-      return UserCtrls.find_user(req, res, function(err, doc) {
-        if (err) {
-          console.log('err', err);
-        } else {
-
-        }
-        return res.render("index", {
-          "title": doc
+    app.get("/", function(req, res, next) {
+      if (req.session.sign) {
+        return res.render("home", {
+          session: req.session
         });
+      } else {
+        return res.render("index", {
+          "title": "index"
+        });
+      }
+    });
+    app.get("/reg", function(req, res) {
+      return res.render("reg/register", {
+        "title": "用户注册"
+      });
+    });
+    app.post("/reg", function(req, res) {
+      return UserCtrls.save(req, res, function(err, user) {
+        if (err) {
+          return res.redirect(404);
+        } else {
+          return res.render('index', {
+            "title": "Index"
+          });
+        }
+      });
+    });
+    app.get("/login", function(req, res) {
+      return res.render("login/login", {
+        "title": "Login"
+      });
+    });
+    return app.post("/login", function(req, res) {
+      return UserCtrls.find_user(req, res, function(err, user) {
+        if (err) {
+          return res.redirect(404);
+        } else {
+          if (!user) {
+            console.log('用户不存在');
+            res.render('/login');
+          }
+          console.log('user:', user);
+          req.session.sign = true;
+          req.session.user = user;
+          return res.render("home", {
+            session: req.session
+          });
+        }
       });
     });
   };
