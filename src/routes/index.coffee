@@ -5,11 +5,6 @@ router = (app) ->
       res.render "home", {session: req.session}
     else
       res.render "index", {"title": "index"}
-    # UserCtrls.find_user req, res, (err, doc) ->
-    #   if err
-    #     res.redirect 404
-    #   else
-    #     res.render "index", {"title": "Expres", "user": "htd"}
 
   # 跳转到注册用户界面
   app.get "/reg", (req, res) ->
@@ -34,12 +29,12 @@ router = (app) ->
         res.redirect 404
       else
         if !user
-          console.log '用户不存在'
-          res.render 'login/login'
+          req.flash 'error', '登录失败！'
+          res.render '/'
         else
           req.session.sign = true
           req.session.user = user
-          console.log 'name', req.session
+          req.flash 'success', '登录成功！'
           res.render "home", {session: req.session}
 
   app.get "/logout", (req, res) ->

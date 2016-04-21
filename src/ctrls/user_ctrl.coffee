@@ -1,7 +1,6 @@
 UserService = require '../service/user_service'
 
 module.exports.find_user = (req, res, cbf) ->
-  console.log "req.body:", req.body
   name = req.body?.name
   passwd = req.body?.passwd
   # 查询条件
@@ -19,3 +18,15 @@ module.exports.save = (req, res, cbf) ->
   params.email = req.body?.email or ''
 
   UserService.addUser params, cbf
+
+module.exports.findAllUser = (req, res, cbf) ->
+  params = {}
+  params.name = req.body?.name or req.params?.name or req.query?.name or ''
+
+  UserService params, cbf
+
+module.exports.remove = (req, res, cbf) ->
+  params = {}
+  params._id = req.body?._id or req.query?._id or req.params?._id
+  
+  UserService.deleteUser params, cbf

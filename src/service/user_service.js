@@ -38,10 +38,12 @@
       });
     },
     findOneUser: function(params, cbf) {
+      console.log('params: ', params);
       return UserModel.findOne(params, function(err, doc) {
         if (err) {
           return cbf(err, null);
         } else {
+          console.log("doc:", doc);
           return cbf(null, doc);
         }
       });

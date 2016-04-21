@@ -43,12 +43,12 @@
           return res.redirect(404);
         } else {
           if (!user) {
-            console.log('用户不存在');
-            return res.render('login/login');
+            req.flash('error', '登录失败！');
+            return res.render('/');
           } else {
             req.session.sign = true;
             req.session.user = user;
-            console.log('name', req.session);
+            req.flash('success', '登录成功！');
             return res.render("home", {
               session: req.session
             });

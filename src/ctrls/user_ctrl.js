@@ -6,7 +6,6 @@
 
   module.exports.find_user = function(req, res, cbf) {
     var name, params, passwd, ref, ref1;
-    console.log("req.body:", req.body);
     name = (ref = req.body) != null ? ref.name : void 0;
     passwd = (ref1 = req.body) != null ? ref1.passwd : void 0;
     params = {
@@ -24,6 +23,20 @@
     params.passwd = ((ref2 = req.body) != null ? ref2.passwd : void 0) || '';
     params.email = ((ref3 = req.body) != null ? ref3.email : void 0) || '';
     return UserService.addUser(params, cbf);
+  };
+
+  module.exports.findAllUser = function(req, res, cbf) {
+    var params, ref, ref1, ref2;
+    params = {};
+    params.name = ((ref = req.body) != null ? ref.name : void 0) || ((ref1 = req.params) != null ? ref1.name : void 0) || ((ref2 = req.query) != null ? ref2.name : void 0) || '';
+    return UserService(params, cbf);
+  };
+
+  module.exports.remove = function(req, res, cbf) {
+    var params, ref, ref1, ref2;
+    params = {};
+    params._id = ((ref = req.body) != null ? ref._id : void 0) || ((ref1 = req.query) != null ? ref1._id : void 0) || ((ref2 = req.params) != null ? ref2._id : void 0);
+    return UserService.deleteUser(params, cbf);
   };
 
 }).call(this);
