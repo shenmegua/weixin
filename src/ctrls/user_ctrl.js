@@ -13,7 +13,7 @@
       name: name,
       passwd: passwd
     };
-    return UserService.findUser(params, cbf);
+    return UserService.findOneUser(params, cbf);
   };
 
   module.exports.save = function(req, res, cbf) {

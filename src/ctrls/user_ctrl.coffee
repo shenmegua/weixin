@@ -4,11 +4,12 @@ module.exports.find_user = (req, res, cbf) ->
   console.log "req.body:", req.body
   name = req.body?.name
   passwd = req.body?.passwd
+  # 查询条件
   params = 
     name : name
     passwd : passwd
 
-  UserService.findUser params, cbf
+  UserService.findOneUser params, cbf
 
 module.exports.save = (req, res, cbf) ->
   params = {}
