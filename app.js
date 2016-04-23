@@ -25,7 +25,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(flash());
 
+// 保存session到mongodb
 app.use(session({
   secret: settings.db.session.cookieSecret,
   key: settings.db.session.sessioncache,
